@@ -2,15 +2,6 @@ package com.nelkinda.training
 
 import java.util.Date
 
-class Expense {
-    lateinit var type: ExpenseType
-    var amount: Int = 0
-
-    fun isMealExpense() = this.type.expenseCategory == "MEAL"
-
-    fun checkIfLimitExceeds() = amount > type.expenseLimit
-}
-
 class ExpenseReport {
     fun printReport(expenses: List<Expense>, date: Date) {
         var total = 0
