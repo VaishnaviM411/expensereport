@@ -2,8 +2,10 @@ package com.nelkinda.training
 
 import java.util.Date
 
-enum class ExpenseType {
-    DINNER, BREAKFAST, CAR_RENTAL
+enum class ExpenseType (val expenseName: String){
+    DINNER("Dinner"),
+    BREAKFAST("Breakfast"),
+    CAR_RENTAL("Car Rental")
 }
 
 class Expense {
@@ -23,12 +25,7 @@ class ExpenseReport {
                 mealExpenses += expense.amount
             }
 
-            var expenseName = ""
-            when (expense.type) {
-                ExpenseType.DINNER -> expenseName = "Dinner"
-                ExpenseType.BREAKFAST -> expenseName = "Breakfast"
-                ExpenseType.CAR_RENTAL -> expenseName = "Car Rental"
-            }
+            val expenseName = expense.type.expenseName
 
             val mealOverExpensesMarker = checkExpenseMarker(expense)
 
