@@ -2,15 +2,17 @@ package com.nelkinda.training
 
 import java.util.Date
 
-enum class ExpenseType (val expenseName: String){
-    DINNER("Dinner"),
-    BREAKFAST("Breakfast"),
-    CAR_RENTAL("Car Rental")
+enum class ExpenseType (val expenseName: String, val expenseCategory: String){
+    DINNER("Dinner", "MEAL"),
+    BREAKFAST("Breakfast", "MEAL"),
+    CAR_RENTAL("Car Rental", "LOGISTICS")
 }
 
 class Expense {
     lateinit var type: ExpenseType
     var amount: Int = 0
+
+    fun isMealExpense() = this.type.expenseCategory == "MEAL"
 }
 
 class ExpenseReport {
@@ -21,7 +23,7 @@ class ExpenseReport {
         println("Expenses $date")
 
         for (expense in expenses) {
-            if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
+            if (expense.isMealExpense()) {
                 mealExpenses += expense.amount
             }
 

@@ -120,4 +120,42 @@ class ExpenseReportTest {
         //Assert
         assertEquals(" ",response)
     }
+
+    @Test
+    fun `isMealExpense should return true for expense type dinner`() {
+        //Arrange
+        val dinnerExpense = getExpense(ExpenseType.DINNER, 4999)
+
+        //Act
+        val response = dinnerExpense.isMealExpense()
+
+        //Assert
+        assertEquals(true, response)
+    }
+
+    @Test
+    fun `isMealExpense should return true for expense type breakfast`() {
+        //Arrange
+        val breakfastExpense = getExpense(ExpenseType.BREAKFAST, 100)
+
+        //Act
+        val response = breakfastExpense.isMealExpense()
+
+        //Assert
+        assertEquals(true, response)
+    }
+
+    @Test
+    fun `isMealExpense should return false for expense type car rental`() {
+        //Arrange
+        val carRentalExpense = getExpense(ExpenseType.CAR_RENTAL, 4999)
+
+        //Act
+        val response = carRentalExpense.isMealExpense()
+
+        //Assert
+        assertEquals(false, response)
+    }
+
+
 }
