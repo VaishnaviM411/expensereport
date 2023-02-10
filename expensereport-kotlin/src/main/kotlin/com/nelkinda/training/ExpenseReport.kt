@@ -2,10 +2,10 @@ package com.nelkinda.training
 
 import java.util.Date
 
-enum class ExpenseType (val expenseName: String, val expenseCategory: String){
-    DINNER("Dinner", "MEAL"),
-    BREAKFAST("Breakfast", "MEAL"),
-    CAR_RENTAL("Car Rental", "LOGISTICS")
+enum class ExpenseType(val expenseName: String, val expenseCategory: String, val expenseLimit: Int) {
+    DINNER("Dinner", "MEAL", 5000),
+    BREAKFAST("Breakfast", "MEAL", 1000),
+    CAR_RENTAL("Car Rental", "LOGISTICS", Int.MAX_VALUE),
 }
 
 class Expense {
@@ -13,6 +13,8 @@ class Expense {
     var amount: Int = 0
 
     fun isMealExpense() = this.type.expenseCategory == "MEAL"
+
+    fun checkIfLimitExceeds() = amount > type.expenseLimit
 }
 
 class ExpenseReport {
@@ -29,7 +31,7 @@ class ExpenseReport {
 
             val expenseName = expense.type.expenseName
 
-            val mealOverExpensesMarker = checkExpenseMarker(expense)
+            val mealOverExpensesMarker = mealExpenseLimitExceedMarker(expense)
 
             println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
@@ -40,9 +42,7 @@ class ExpenseReport {
         println("Total expenses: $total")
     }
 
-    fun checkExpenseMarker(expense: Expense): String {
-        val mealOverExpensesMarker =
-            if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
-        return mealOverExpensesMarker
+    fun mealExpenseLimitExceedMarker(expense: Expense): String {
+        return if (expense.isMealExpense() && expense.checkIfLimitExceeds()) "X" else " "
     }
 }

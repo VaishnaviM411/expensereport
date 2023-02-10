@@ -56,66 +56,67 @@ class ExpenseReportTest {
         )
     }
 
+
     @Test
-    fun `checkExpenseMarkerTest should return X for dinner limit exceeded`() {
+    fun `mealExpenseLimitExceedMarker should return X for dinner limit exceeded`() {
         //Arrange
         val expenseReport = ExpenseReport()
         val dinnerExpenseLimitExceeded = getExpense(ExpenseType.DINNER, 50001)
 
         //Act
-        val response = expenseReport.checkExpenseMarker(dinnerExpenseLimitExceeded)
+        val response = expenseReport.mealExpenseLimitExceedMarker(dinnerExpenseLimitExceeded)
 
         //Assert
         assertEquals("X",response)
     }
 
     @Test
-    fun `checkExpenseMarkerTest should return X for breakfast limit exceeded`() {
+    fun `mealExpenseLimitExceedMarker should return X for breakfast limit exceeded`() {
         //Arrange
         val expenseReport = ExpenseReport()
         val breakfastExpenseLimitExceeded = getExpense(ExpenseType.BREAKFAST, 10001)
 
         //Act
-        val response = expenseReport.checkExpenseMarker(breakfastExpenseLimitExceeded)
+        val response = expenseReport.mealExpenseLimitExceedMarker(breakfastExpenseLimitExceeded)
 
         //Assert
         assertEquals("X",response)
     }
 
     @Test
-    fun `checkExpenseMarkerTest should return space for breakfast expense within limit`() {
+    fun `mealExpenseLimitExceedMarker should return space for breakfast expense within limit`() {
         //Arrange
         val expenseReport = ExpenseReport()
         val breakfastExpense = getExpense(ExpenseType.BREAKFAST, 999)
 
         //Act
-        val response = expenseReport.checkExpenseMarker(breakfastExpense)
+        val response = expenseReport.mealExpenseLimitExceedMarker(breakfastExpense)
 
         //Assert
         assertEquals(" ",response)
     }
 
     @Test
-    fun `checkExpenseMarkerTest should return space for dinner expense within limit`() {
+    fun `mealExpenseLimitExceedMarker should return space for dinner expense within limit`() {
         //Arrange
         val expenseReport = ExpenseReport()
         val dinnerExpense = getExpense(ExpenseType.DINNER, 4999)
 
         //Act
-        val response = expenseReport.checkExpenseMarker(dinnerExpense)
+        val response = expenseReport.mealExpenseLimitExceedMarker(dinnerExpense)
 
         //Assert
         assertEquals(" ",response)
     }
 
     @Test
-    fun `checkExpenseMarkerTest should return space for expense type that does not have limit`() {
+    fun `mealExpenseLimitExceedMarker should return space for expense type other than MEAL`() {
         //Arrange
         val expenseReport = ExpenseReport()
         val carRentalExpense = getExpense(ExpenseType.CAR_RENTAL, 4999)
 
         //Act
-        val response = expenseReport.checkExpenseMarker(carRentalExpense)
+        val response = expenseReport.mealExpenseLimitExceedMarker(carRentalExpense)
 
         //Assert
         assertEquals(" ",response)
