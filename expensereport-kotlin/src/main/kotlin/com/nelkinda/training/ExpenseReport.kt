@@ -30,7 +30,7 @@ class ExpenseReport {
                 ExpenseType.CAR_RENTAL -> expenseName = "Car Rental"
             }
 
-            val mealOverExpensesMarker = if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
+            val mealOverExpensesMarker = checkExpenseMarker(expense)
 
             println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
@@ -39,5 +39,11 @@ class ExpenseReport {
 
         println("Meal expenses: $mealExpenses")
         println("Total expenses: $total")
+    }
+
+    fun checkExpenseMarker(expense: Expense): String {
+        val mealOverExpensesMarker =
+            if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
+        return mealOverExpensesMarker
     }
 }

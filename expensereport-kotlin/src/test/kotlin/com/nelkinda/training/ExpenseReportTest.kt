@@ -55,4 +55,69 @@ class ExpenseReportTest {
                     "Total expenses: 61112\n", baos.toString()
         )
     }
+
+    @Test
+    fun `checkExpenseMarkerTest should return X for dinner limit exceeded`() {
+        //Arrange
+        val expenseReport = ExpenseReport()
+        val dinnerExpenseLimitExceeded = getExpense(ExpenseType.DINNER, 50001)
+
+        //Act
+        val response = expenseReport.checkExpenseMarker(dinnerExpenseLimitExceeded)
+
+        //Assert
+        assertEquals("X",response)
+    }
+
+    @Test
+    fun `checkExpenseMarkerTest should return X for breakfast limit exceeded`() {
+        //Arrange
+        val expenseReport = ExpenseReport()
+        val breakfastExpenseLimitExceeded = getExpense(ExpenseType.BREAKFAST, 10001)
+
+        //Act
+        val response = expenseReport.checkExpenseMarker(breakfastExpenseLimitExceeded)
+
+        //Assert
+        assertEquals("X",response)
+    }
+
+    @Test
+    fun `checkExpenseMarkerTest should return space for breakfast expense within limit`() {
+        //Arrange
+        val expenseReport = ExpenseReport()
+        val breakfastExpense = getExpense(ExpenseType.BREAKFAST, 999)
+
+        //Act
+        val response = expenseReport.checkExpenseMarker(breakfastExpense)
+
+        //Assert
+        assertEquals(" ",response)
+    }
+
+    @Test
+    fun `checkExpenseMarkerTest should return space for dinner expense within limit`() {
+        //Arrange
+        val expenseReport = ExpenseReport()
+        val dinnerExpense = getExpense(ExpenseType.DINNER, 4999)
+
+        //Act
+        val response = expenseReport.checkExpenseMarker(dinnerExpense)
+
+        //Assert
+        assertEquals(" ",response)
+    }
+
+    @Test
+    fun `checkExpenseMarkerTest should return space for expense type that does not have limit`() {
+        //Arrange
+        val expenseReport = ExpenseReport()
+        val carRentalExpense = getExpense(ExpenseType.CAR_RENTAL, 4999)
+
+        //Act
+        val response = expenseReport.checkExpenseMarker(carRentalExpense)
+
+        //Assert
+        assertEquals(" ",response)
+    }
 }
